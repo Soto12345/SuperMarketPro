@@ -4,7 +4,7 @@ const FormularioRegistro = () => {
   return (
     <>
       <div
-        className="container d-flex flex-column justify-content-center align-items-center"
+        className="container d-flex flex-column justify-content-end align-items-center"
         style={{ padding: "80px" }}
       >
         <div className="text-center fs-1">Registro</div>
@@ -18,8 +18,16 @@ const FormularioRegistro = () => {
         </div>
         <div className="pt-3">
           <TextField
-            id="Apellido"
-            label="Apellido"
+            id="direccion"
+            label="Direccion"
+            variant="outlined"
+            size="small"
+          />
+        </div>
+        <div className="pt-3">
+          <TextField
+            id="telefono"
+            label="telefono"
             variant="outlined"
             size="small"
           />
@@ -41,6 +49,7 @@ const FormularioRegistro = () => {
             size="small"
           />
         </div>
+
         <div className="pt-3">
           <Button variant="contained">Registrar</Button>
         </div>
