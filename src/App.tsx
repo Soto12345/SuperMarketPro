@@ -8,6 +8,7 @@ import {
 import FormularioRegistro from "./Registro/Componentes/FormularioRegistro";
 import FormularioLogin from "./Login/Componentes/FormularioLogin";
 import "./App.css";
+import Body from "./Generales/Componentes/Body";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<FormularioLogin />} />
           <Route path="/registro" element={<FormularioRegistro />} />
+          <Route path="/principal" element={<Body/>}/>
         </Routes>
       </Router>
     </>

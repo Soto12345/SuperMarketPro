@@ -19,7 +19,7 @@ const Header = () => {
               >
                 <span className="navbar-toggler-icon"></span>
               </button>
-              <div className="collapse navbar-collapse" id="navbarNav">
+              {/* <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                   <li className="nav-item">
                     <a className="nav-link" href="#">
@@ -37,7 +37,7 @@ const Header = () => {
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
             </div>
           </nav>
         </div>
