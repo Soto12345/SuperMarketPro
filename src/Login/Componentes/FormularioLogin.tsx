@@ -4,6 +4,8 @@ import { useState } from "react";
 import { enviarDatos } from "../../Generales/Componentes/Backend";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { setLocalStorageJWT } from "../../Generales/Componentes/LocalStorage";
+import { getLocalStorageJWT } from "../../Generales/Componentes/LocalStorage";
 const FormularioLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,16 +14,20 @@ const FormularioLogin = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    enviarDatos("/users/login", { email: email, password: password })
+    enviarDatos("/auth/login", { email: email, password: password },false)
       .then((response) => {
         if (response.error) {
           setError(true);
           console.log("credenciales incorrectas");
+          console.log(response);
         }
         if (response.status === 200) {
           setError(false);
           console.log("Bienvenido usuario");
+          console.log(response);
           setRedirectToPrincipal(true);
+          setLocalStorageJWT(response.token);
+          console.log(getLocalStorageJWT())
         }
       })
       .catch((error) => {
@@ -47,6 +53,7 @@ const FormularioLogin = () => {
             size="small"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </div>
         <div className="pt-3">
@@ -58,10 +65,11 @@ const FormularioLogin = () => {
             size="small"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </div>
         <div className="pt-3">
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button variant="contained" onClick={handleSubmit} disabled={!email || !password}>
             Iniciar sesión
           </Button>
         </div>

@@ -11,13 +11,13 @@ const FormularioRegistro = () => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const handleSubmit = async () => {
-    enviarDatos("/users/register", {
+    enviarDatos("/users/register",{
       name: name,
       email: email,
       address: address,
       password: password,
       phoneNumber: phoneNumber,
-    })
+    },false)
       .then((response) => {
         if (response.error) {
           console.log("hubo un error al registrarse");
@@ -53,6 +53,7 @@ const FormularioRegistro = () => {
             onChange={(e) => {
               setName(e.target.value);
             }}
+            required
           />
         </div>
         <div className="pt-3">
@@ -65,6 +66,7 @@ const FormularioRegistro = () => {
             onChange={(e) => {
               setAddress(e.target.value);
             }}
+            required
           />
         </div>
         <div className="pt-3">
@@ -77,6 +79,7 @@ const FormularioRegistro = () => {
             onChange={(e) => {
               setPhoneNumber(e.target.value);
             }}
+            required
           />
         </div>
         <div className="pt-3">
@@ -89,6 +92,7 @@ const FormularioRegistro = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            required
           />
         </div>
         <div className="pt-3">
@@ -102,11 +106,16 @@ const FormularioRegistro = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            required
           />
         </div>
 
         <div className="pt-3">
-          <Button variant="contained" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            disabled={!name || !address || !phoneNumber || !email || !password}
+          >
             Registrar
           </Button>
         </div>

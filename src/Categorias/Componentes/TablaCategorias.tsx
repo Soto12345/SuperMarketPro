@@ -7,42 +7,62 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-
+import { getDatos } from "../../Generales/Componentes/Backend";
+import { useEffect, useState } from "react";
 const TablaCategorias = () => {
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    obtenerCategorias();
+  }, []);
+  const obtenerCategorias = () => {
+    getDatos("/categories/TodasCategorias", true)
+      .then((response) => {
+        if (response.error) {
+          console.log(response);
+        }
+        if (response.status === 200) {
+          console.log(response);
+          setCategorias(response.data);
+        }
+      })
+      .catch((error) => {
+        console.error("error al enviar los datos ", error);
+      });
+  };
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Categoría</TableCell>
-            <TableCell>Descripción</TableCell>
-            <TableCell>Acciones</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {/* Aquí puedes mapear sobre tus datos y renderizar cada fila */}
-          <TableRow>
-            <TableCell>Categoría 1</TableCell>
-            <TableCell>Descripción de la categoría 1</TableCell>
-            <TableCell>
-              {/* Botones de acción, por ejemplo, editar o eliminar */}
-              <button>Editar</button>
-              <button>Eliminar</button>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Categoría 2</TableCell>
-            <TableCell>Descripción de la categoría 2</TableCell>
-            <TableCell>
-              {/* Botones de acción, por ejemplo, editar o eliminar */}
-              <button>Editar</button>
-              <button>Eliminar</button>
-            </TableCell>
-          </TableRow>
-          {/* Puedes agregar más filas según sea necesario */}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1 style={{ marginBottom: "20px" }}>Todas las categorías</h1>
+      <TableContainer component={Paper} style={{ maxWidth: "600px" }}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Categoría</strong>
+              </TableCell>
+              <TableCell>
+                <strong>Descripción</strong>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {categorias.map((categoria) => (
+              <TableRow key={categoria._id}>
+                <TableCell>{categoria.name}</TableCell>
+                <TableCell>{categoria.description}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
   );
 };
 
